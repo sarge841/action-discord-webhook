@@ -1,0 +1,66 @@
+name: 'Send Discord Message'
+description: 'Sends a message to a Discord channel via webhook.'
+author: 'Jake Cabrera'
+
+inputs:
+  webhook_url:
+    description:
+      'The Discord webhook URL (can be set via ENV as DISCORD_WEBHOOK_URL)'
+    required: false
+  content:
+    description: 'Message content to send to Discord.'
+    required: false
+  username:
+    description:
+      "The username to send the notification as. If unspecified, uses webhook's
+      default username."
+    required: false
+  avatar_url:
+    description: 'The avatar URL for the webhook message.'
+    required: false
+  tts:
+    description: "Set to 'true' to enable text-to-speech."
+    required: false
+  embed_title:
+    description: 'Title of the embed message.'
+    required: false
+  embed_description:
+    description: 'Description of the embed message.'
+    required: false
+  embed_url:
+    description: 'URL to attach to the embed.'
+    required: false
+  embed_timestamp:
+    description: 'Timestamp for the embed message (ISO 8601 format).'
+    required: false
+  embed_color:
+    description: 'Embed color as a hexadecimal number (e.g., 0xFF0000 for red).'
+    required: false
+  embed_author_name:
+    description: 'Name of the embed author.'
+    required: false
+  embed_author_url:
+    description: 'URL of the embed author.'
+    required: false
+  embed_author_icon_url:
+    description: 'Icon URL for the embed author.'
+    required: false
+  embed_footer_text:
+    description: 'Footer text for the embed.'
+    required: false
+  embed_footer_icon_url:
+    description: 'Icon URL for the embed footer.'
+    required: false
+  embed_fields:
+    description:
+      "JSON array of fields for the embed. Each field should be an object with
+      'name', 'value', and 'inline'."
+    required: false
+  show_payload:
+    description: "Set to 'true' to log the payload before sending."
+    required: false
+    default: false
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
