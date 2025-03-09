@@ -1,6 +1,9 @@
-name: 'Send Discord Message'
+name: 'Discord Webhook Notification'
 description: 'Sends a message to a Discord channel via webhook.'
 author: 'Jake Cabrera'
+branding:
+  icon: 'message-circle'
+  color: 'blue'
 
 inputs:
   webhook_url:
@@ -59,7 +62,7 @@ inputs:
   show_payload:
     description: "Set to 'true' to log the payload before sending."
     required: false
-    default: false
+    default: "false"
 
 runs:
   using: 'node20'
