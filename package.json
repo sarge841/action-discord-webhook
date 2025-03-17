@@ -34,7 +34,7 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.0",
-    "axios": "^1.8.2"
+    "axios": "^1.8.3"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.7",
