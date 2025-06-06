@@ -15,7 +15,6 @@ on:
       - main
     paths-ignore:
       - .github/**
-      - dist/**
   push:
     branches:
       - main
@@ -69,13 +68,11 @@ jobs:
             if [ "${{ github.event_name }}" = "push" ]; then
               echo "This workflow is run on push events. Please commit the changes to dist/."
               exit 1
+            else
+              echo "::warning file=dist/index.js,title=dist out of date::This workflow is run on pull request events. Please commit the changes to dist/."
+              exit 1
             fi
           fi
-
-      # If pull request, commit the changes to the `dist/` directory.
-      - if: ${{ github.event_name == 'pull_request' && steps.diff.outcome == 'success' }}
-        name: Commit Changes to dist/
-        uses: stefanzweifel/git-auto-commit-action@v5
 
       # If `dist/` was different than expected, upload the expected version as a
       # workflow artifact.
