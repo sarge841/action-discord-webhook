@@ -1,0 +1,39 @@
+name: Dependabot fetch metadata
+on: 
+  pull_request_target:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  transpile:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+      # Checkout the repository.
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      # Setup Node.js using the version specified in `.node-version`.
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      # Install dependencies using `npm ci`.
+      - name: Install Dependencies
+        id: install
+        run: npm ci
+
+      # Build the `dist/` directory.
+      - name: Build dist/ Directory
+        id: build
+        run: npm run bundle
+
+      - name: Commit Changes to dist/
+        uses: stefanzweifel/git-auto-commit-action@v5

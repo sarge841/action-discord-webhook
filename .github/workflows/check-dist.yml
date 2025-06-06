@@ -15,7 +15,6 @@ on:
       - main
     paths-ignore:
       - .github/**
-      - dist/**
   push:
     branches:
       - main
@@ -68,6 +67,9 @@ jobs:
             # If push event, fail the workflow.
             if [ "${{ github.event_name }}" = "push" ]; then
               echo "This workflow is run on push events. Please commit the changes to dist/."
+              exit 1
+            else
+              echo "::warning file=dist/index.js,title=dist out of date::This workflow is run on pull request events. Please commit the changes to dist/."
               exit 1
             fi
           fi
