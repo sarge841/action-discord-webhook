@@ -74,6 +74,11 @@ jobs:
             fi
           fi
 
+      # If pull request, commit the changes to the `dist/` directory.
+      - if: ${{ github.event_name == 'pull_request' && steps.diff.outcome == 'success' }}
+        name: Commit Changes to dist/
+        uses: stefanzweifel/git-auto-commit-action@v5
+
       # If `dist/` was different than expected, upload the expected version as a
       # workflow artifact.
       - if: ${{ failure() && steps.diff.outcome == 'failure' }}
