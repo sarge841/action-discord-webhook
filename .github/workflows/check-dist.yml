@@ -13,12 +13,15 @@ on:
   pull_request:
     branches:
       - main
+    paths-ignore:
+      - .github/**
+      - dist/**
   push:
     branches:
       - main
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   check-dist:
@@ -60,10 +63,19 @@ jobs:
             exit 1
           fi
           if [ "$(git diff --ignore-space-at-eol --text dist/ | wc -l)" -gt "0" ]; then
-            echo "Detected uncommitted changes after build. See status below:"
-            git diff --ignore-space-at-eol --text dist/
-            exit 1
+            echo "Detected uncommitted changes after build. Ensure you have built the dist/ directory before committing."
+
+            # If push event, fail the workflow.
+            if [ "${{ github.event_name }}" = "push" ]; then
+              echo "This workflow is run on push events. Please commit the changes to dist/."
+              exit 1
+            fi
           fi
+
+      # If pull request, commit the changes to the `dist/` directory.
+      - if: ${{ github.event_name == 'pull_request' && steps.diff.outcome == 'success' }}
+        name: Commit Changes to dist/
+        uses: stefanzweifel/git-auto-commit-action@v5
 
       # If `dist/` was different than expected, upload the expected version as a
       # workflow artifact.
