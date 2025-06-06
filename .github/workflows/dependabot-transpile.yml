@@ -1,8 +1,10 @@
-name: Dependabot fetch metadata
-on: 
+name: Dependabot transpile code
+on:
   pull_request_target:
     branches:
       - main
+    paths-ignore:
+      - .github/**
 
 permissions:
   contents: write
