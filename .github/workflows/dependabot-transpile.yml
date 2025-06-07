@@ -1,16 +1,17 @@
 name: Dependabot transpile code
 on:
-  pull_request:
-    branches:
-      - main
-      # - dependabot/**  # Match branches created by Dependabot
-
+  workflow_call:
+    inputs:
+      commit_message:
+        description: 'The commit message to use when committing changes to the dist/ directory.'
+        required: false
+        type: string
+        default: '[dependabot skip] update dist/ directory'
 permissions:
   contents: write
 
 jobs:
   transpile:
-    if: ${{ startsWith(github.event.pull_request.head.ref, 'dependabot/') }}
     runs-on: ubuntu-latest
     steps:
       # Checkout the repository.
@@ -39,8 +40,4 @@ jobs:
       - name: Commit Changes to dist/
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: '[dependabot skip] chore(deps): update dist/ directory'
-
-  call-workflow-check-dist:
-    needs: transpile
-    uses: ./.github/workflows/check-dist.yml
+          commit_message: ${{ inputs.commit_message }}
