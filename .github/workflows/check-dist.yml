@@ -18,7 +18,6 @@ on:
   push:
     branches:
       - main
-      - 'dependabot/**'
 
 permissions:
   contents: write
@@ -27,19 +26,7 @@ jobs:
   check-dist:
     name: Check dist/
     runs-on: ubuntu-latest
-    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'dependabot/')) }}
     steps:
-      - name: Debug
-        run: |
-          echo "Event name: ${{ github.event_name }}"
-          echo "Ref: ${{ github.ref }}"
-          echo "Ref name: ${{ github.ref_name }}"
-          echo "Repository: ${{ github.repository }}"
-          echo "Actor: ${{ github.actor }}"
-          echo "Event payload: ${EVENT_PAYLOAD}"
-        env:
-          EVENT_PAYLOAD: ${{ toJson(github.event) }}
-
       # Checkout the repository.
       - name: Checkout
         id: checkout
@@ -77,13 +64,3 @@ jobs:
             echo "Detected uncommitted changes after build. Ensure you have built the dist/ directory before committing."
             exit 1
           fi
-
-      # If `dist/` was different than expected, upload the expected version as a
-      # workflow artifact.
-      - if: ${{ failure() && steps.diff.outcome == 'failure' }}
-        name: Upload Artifact
-        id: upload
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
