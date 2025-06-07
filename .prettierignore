@@ -1,4 +1,5 @@
 .DS_Store
+.github/
 .licenses/
 dist/
 node_modules/
