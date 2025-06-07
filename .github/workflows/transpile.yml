@@ -1,6 +1,6 @@
-name: Dependabot transpile code
+name: Transpile code
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       commit_message:
         description: 'The commit message to use when committing changes to the dist/ directory.'

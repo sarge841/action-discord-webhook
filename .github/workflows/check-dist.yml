@@ -19,13 +19,6 @@ on:
     branches:
       - main
       - 'dependabot/**'
-  workflow_call:
-    inputs:
-      ref:
-        description: 'The branch or tag to check dist/ against.'
-        required: false
-        type: string
-        default: ${{ github.ref }}
 
 permissions:
   contents: write
@@ -39,10 +32,11 @@ jobs:
       - name: Debug
         run: |
           echo "Event name: ${{ github.event_name }}"
-          echo "Ref: ${{ inputs.ref || github.sha }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Ref name: ${{ github.ref_name }}"
           echo "Repository: ${{ github.repository }}"
           echo "Actor: ${{ github.actor }}"
-          echo "Event payload: ${ EVENT_PAYLOAD }"
+          echo "Event payload: ${EVENT_PAYLOAD}"
         env:
           EVENT_PAYLOAD: ${{ toJson(github.event) }}
 
@@ -50,8 +44,6 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.ref || github.sha }}
 
       # Setup Node.js using the version specified in `.node-version`.
       - name: Setup Node.js
