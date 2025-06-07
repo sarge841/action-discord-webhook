@@ -42,4 +42,4 @@ jobs:
           commit_message: '[dependabot skip] chore(deps): update dist/ directory'
 
       - name: Run Check Dist
-        uses: ${{ github.repository }}/.github/workflows/check-dist.yml@${{ github.event.pull_request.head.ref }}
+        uses: ./.github/workflows/check-dist.yml
