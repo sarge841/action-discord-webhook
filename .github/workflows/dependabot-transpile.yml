@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   transpile:
-    if: ${{ startsWith(github.event.pull_request.head.ref, 'refs/heads/dependabot/') }}
+    if: ${{ startsWith(github.event.pull_request.head.ref, 'dependabot/') }}
     runs-on: ubuntu-latest
     steps:
       # Checkout the repository.

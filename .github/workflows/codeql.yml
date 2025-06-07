@@ -33,7 +33,7 @@ permissions:
 jobs:
   analyze:
     name: Analyze
-    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'refs/heads/dependabot/')) }}
+    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'dependabot/')) }}
     runs-on: ubuntu-latest
 
     strategy:

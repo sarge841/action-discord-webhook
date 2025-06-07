@@ -27,7 +27,7 @@ jobs:
   check-dist:
     name: Check dist/
     runs-on: ubuntu-latest
-    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'refs/heads/dependabot/')) }}
+    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'dependabot/')) }}
     steps:
       # Checkout the repository.
       - name: Checkout

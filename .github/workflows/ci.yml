@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   test-javascript:
-    if: ${{ !(github.event_name == 'pull_request_target' && startsWith(github.event.pull_request.head.ref, 'refs/heads/dependabot/')) }}
+    if: ${{ !(github.event_name == 'pull_request_target' && startsWith(github.event.pull_request.head.ref, 'dependabot/')) }}
     name: JavaScript Tests
     runs-on: ubuntu-latest
 
@@ -52,7 +52,7 @@ jobs:
 
   test-action:
     name: GitHub Actions Test
-    if: ${{ !(github.event_name == 'pull_request_target' && startsWith(github.event.pull_request.head.ref, 'refs/heads/dependabot/')) }}
+    if: ${{ !(github.event_name == 'pull_request_target' && startsWith(github.event.pull_request.head.ref, 'dependabot/')) }}
     runs-on: ubuntu-latest
 
     steps:
@@ -69,14 +69,3 @@ jobs:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           content: 'Test message from GitHub Actions'
           show_payload: 'true'
-
-
-  test-job:
-    name: Test Job
-    runs-on: ubuntu-latest
-    steps:
-      - name: Echo Message
-        run: |
-          echo "Github ref: ${{ github.ref }}"
-          echo "Github ref2: ${{ github.event.pull_request.head.ref }}"
-          echo "Github event name: ${{ github.event_name }}"
