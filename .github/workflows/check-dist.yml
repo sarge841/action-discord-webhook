@@ -33,12 +33,12 @@ jobs:
   check-dist:
     name: Check dist/
     runs-on: ubuntu-latest
-    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'dependabot/')) }}
+    # if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'dependabot/')) }}
     steps:
       - name: Debug
         run: |
           echo "Event name: ${{ github.event_name }}"
-          echo "Ref: ${{ (github.event_name == 'workflow_call' && inputs.ref) || github.sha }}"
+          echo "Ref: ${{ inputs.ref || github.sha }}"
           echo "Repository: ${{ github.repository }}"
           echo "Actor: ${{ github.actor }}"
           echo "Event payload: ${{ toJson(github.event) }}"
@@ -48,7 +48,7 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ (github.event_name == 'workflow_call' && inputs.ref) || github.sha }}
+          ref: ${{ inputs.ref || github.sha }}
 
       # Setup Node.js using the version specified in `.node-version`.
       - name: Setup Node.js

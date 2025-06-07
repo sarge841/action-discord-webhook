@@ -43,5 +43,4 @@ jobs:
 
   call-workflow-check-dist:
     needs: transpile
-    if: ${{ startsWith(github.event.pull_request.head.ref, 'dependabot/') }}
     uses: ./.github/workflows/check-dist.yml
