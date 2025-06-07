@@ -22,7 +22,7 @@ on:
     inputs:
       ref:
         description: 'The branch or tag to check dist/ against.'
-        required: true
+        required: false
         type: string
         default: ${{ github.ref }}
 
