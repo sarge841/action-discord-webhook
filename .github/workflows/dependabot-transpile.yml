@@ -47,7 +47,10 @@ jobs:
           echo "Ref: ${{ github.sha }}"
           echo "Repository: ${{ github.repository }}"
           echo "Actor: ${{ github.actor }}"
-          ls -Alh
+          ls -Alh .github
+          echo "-----------"
+          ls -Alh .github/workflows
 
-      - name: Run Check Dist
-        uses: ./.github/workflows/check-dist.yml
+  call-workflow-check-dist:
+    needs: transpile
+    uses: ./.github/workflows/check-dist.yml
