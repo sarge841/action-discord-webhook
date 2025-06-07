@@ -41,16 +41,7 @@ jobs:
         with:
           commit_message: '[dependabot skip] chore(deps): update dist/ directory'
 
-      - name: Debug
-        run: |
-          echo "Event name: ${{ github.event_name }}"
-          echo "Ref: ${{ github.sha }}"
-          echo "Repository: ${{ github.repository }}"
-          echo "Actor: ${{ github.actor }}"
-          ls -Alh .github
-          echo "-----------"
-          ls -Alh .github/workflows
-
   call-workflow-check-dist:
     needs: transpile
+    if: ${{ startsWith(github.event.pull_request.head.ref, 'dependabot/') }}
     uses: ./.github/workflows/check-dist.yml
