@@ -18,6 +18,8 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.TRANSPILE_TOKEN }}
 
       # Setup Node.js using the version specified in `.node-version`.
       - name: Setup Node.js
