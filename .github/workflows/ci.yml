@@ -69,3 +69,14 @@ jobs:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           content: 'Test message from GitHub Actions'
           show_payload: 'true'
+
+
+  test-job:
+    name: Test Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Message
+        run: |
+          echo "Github ref: ${{ github.ref }}"
+          echo "Github ref2: ${{ github.event.pull_request.head.ref }}"
+          echo "Github event name: ${{ github.event_name }}"
