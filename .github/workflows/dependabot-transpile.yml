@@ -1,10 +1,8 @@
 name: Dependabot transpile code
 on:
-  pull_request:
+  push:
     branches:
-      - main
-    paths-ignore:
-      - .github/**
+      - dependabot/**  # Match branches created by Dependabot
 
 permissions:
   contents: write
@@ -12,7 +10,6 @@ permissions:
 jobs:
   transpile:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
       # Checkout the repository.
       - name: Checkout
@@ -39,3 +36,8 @@ jobs:
 
       - name: Commit Changes to dist/
         uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: '[dependabot skip] chore(deps): update dist/ directory'
+
+      - name: Run Check Dist
+        uses: ${{ github.repository }}/.github/workflows/check-dist.yml@${{ github.ref}}
