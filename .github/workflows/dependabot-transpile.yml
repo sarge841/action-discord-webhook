@@ -1,14 +1,16 @@
 name: Dependabot transpile code
 on:
-  push:
+  pull_request:
     branches:
-      - dependabot/**  # Match branches created by Dependabot
+      - main
+      # - dependabot/**  # Match branches created by Dependabot
 
 permissions:
   contents: write
 
 jobs:
   transpile:
+    if: ${{ startsWith(github.event.pull_request.head.ref, 'refs/heads/dependabot/') }}
     runs-on: ubuntu-latest
     steps:
       # Checkout the repository.
@@ -40,4 +42,4 @@ jobs:
           commit_message: '[dependabot skip] chore(deps): update dist/ directory'
 
       - name: Run Check Dist
-        uses: ${{ github.repository }}/.github/workflows/check-dist.yml@${{ github.ref }}
+        uses: ${{ github.repository }}/.github/workflows/check-dist.yml@${{ github.event.pull_request.head.ref }}

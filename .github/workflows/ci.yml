@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   test-javascript:
-    if: ${{ !(github.event_name == 'pull_request_target' && startsWith(github.ref, 'refs/heads/dependabot/')) }}
+    if: ${{ !(github.event_name == 'pull_request_target' && startsWith(github.event.pull_request.head.ref, 'refs/heads/dependabot/')) }}
     name: JavaScript Tests
     runs-on: ubuntu-latest
 
@@ -52,7 +52,7 @@ jobs:
 
   test-action:
     name: GitHub Actions Test
-    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.ref, 'refs/heads/dependabot/')) }}
+    if: ${{ !(github.event_name == 'pull_request_target' && startsWith(github.event.pull_request.head.ref, 'refs/heads/dependabot/')) }}
     runs-on: ubuntu-latest
 
     steps:
