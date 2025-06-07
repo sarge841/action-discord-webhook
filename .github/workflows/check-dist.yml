@@ -18,6 +18,7 @@ on:
   push:
     branches:
       - main
+  workflow_call:
 
 permissions:
   contents: write
@@ -26,7 +27,7 @@ jobs:
   check-dist:
     name: Check dist/
     runs-on: ubuntu-latest
-
+    if: ${{ !(github.event_name == 'pull_request_target' && startsWith(github.ref, 'refs/heads/dependabot/')) }}
     steps:
       # Checkout the repository.
       - name: Checkout
