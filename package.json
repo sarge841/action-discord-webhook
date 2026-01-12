@@ -33,7 +33,7 @@
   "homepage": "https://github.com/sarge841/action-discord-notif#readme",
   "dependencies": {
     "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.1",
+    "@actions/github": "^7.0.0",
     "axios": "^1.12.2"
   },
   "devDependencies": {
